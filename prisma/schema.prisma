@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Comic {
+  id           Int      @id @default(autoincrement())
+  title        String   @db.VarChar(255)
+  description  String   
+  release_date DateTime
+  pages        Int
+  isbn         String
+  cover_url    String
+  volume       Int
+
+  writers Writer[]
+  artists Artist[]
+
+  series    Series @relation(fields: [series_id], references: [id])
+  series_id Int
+}
+
+model Writer {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  comics Comic[]
+}
+
+model Artist {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  comics Comic[]
+}
+
+model Series {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  collection    Collection @relation(fields: [collection_id], references: [id])
+  collection_id Int
+
+  comics Comic[]
+}
+
+model Collection {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  series Series[]
+
+  editor    Editor @relation(fields: [editor_id], references: [id])
+  editor_id Int
+}
+
+model Editor {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  collections Collection[]
+}

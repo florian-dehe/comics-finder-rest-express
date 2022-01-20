@@ -1,0 +1,20 @@
+{
+  "name": "comics-finder-rest",
+  "version": "0.1.0",
+  "description": "The rest server using Express and Prisma to store and transmit the comics data",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [
+    "comics",
+    "REST"
+  ],
+  "author": "Florian DEHE",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^3.8.0",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
+    "express": "^4.17.2"
+  }
+}
